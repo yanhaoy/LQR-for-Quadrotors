@@ -7,35 +7,77 @@ import casadi.*
 %%
 par.T = 5; % Time horizon
 par.dt = 0.002; % Main control loop runs in 500 Hz
-par.m = 28*1e-3; % Mass
+par.m = 27*1e-3; % Mass
 par.g = 9.81; % Gravity
-par.J = [16.571710, 0.830806, 0.718277;
-    0.830806, 16.655602, 1.800197;
-    0.718277, 1.800197, 29.261652]*1e-6; % Inertia
+% par.J = [16.571710, 0.830806, 0.718277;
+%     0.830806, 16.655602, 1.800197;
+%     0.718277, 1.800197, 29.261652]*1e-6; % Inertia
 par.tau_k = 0.005964552; % Mapping from thrust to torque
-par.l_x = 28.243*1e-3; % Moment arm in x direction
-par.l_y = 28.325*1e-3; % Moment arm in y direction
-par.Q = inv(diag([0.5, 0.38, 0.38, 0.38, 4*0.5, 4*0.38, 4*0.38, 4*0.38].^2)); % LQR gains
-par.R = inv((2*0.06867)^2*eye(4)); % LQR gains
+par.l_x = 0.046*cos(pi/4); % Moment arm in x direction
+par.l_y = 0.046*sin(pi/4); % Moment arm in y direction
+par.l_z = 0.024;
+par.J=diag([1.657171e-05; 1.657171e-05; 2.9261652e-05]+...
+    4*5e-4*...
+    [par.l_y^2+par.l_z^2;
+    par.l_x^2+par.l_z^2;
+    par.l_x^2+par.l_y^2]); % Body inertia
+par.exp_data = [
+    0.05423;
+    0.05423; 
+    0.03792
+    0.007495;
+    0.007495;
+    0.01911;
+    0.02342;
+    0.02342;
+    0.03169;
+    0.1441;
+    0.1441;
+    0.03733];
+par.Q = diag(1./([
+    1e-1;
+    1e-1; 
+    1;
+    1;
+    1;
+    1;
+    1;
+    1;
+    1;
+    1;
+    1;
+    1].*par.exp_data).^2); % LQR gains
+par.R = 1./(0.04178)^2*eye(4); % LQR gains
+% par.Q = diag([1e3,1e3,1e5,1e8,1e8,1e8,1e7,1e7,1e4,1e7,1e7,1e7]); % LQR gains
+% par.R = diag([1e5,1e5,1e5,1e5]); % LQR gains
 
 [model] = dynamics(par);
 [K] = lti_lqr(model, par);
 
 %%
-% Simulation test
-X = [];
-U = [];
-xk = ones(12, 1)*1e-3;
-xd = [0.1;0;0;0;0;0;0;0];
-X(:, 1) = xk;
-for k=0:500
-    uk = repmat(28*1e-3*9.81/4, 4, 1) - K*(xk([3:6, 9:12])-xd);
-    U(:, k+1) = uk;
-    
-    sol = model.dyn_sim('x0', xk, 'p', [uk]);
-    xk = full(sol.xf);
-    X(:, k+2) = xk;
-end
+% % Simulation test
+% X = [];
+% U = [];
+% xk = -par.exp_data;
+% xd = [0;0;0;0;0;0;0;0;0;0;0;0];
+% X(:, 1) = xk;
+% for k=0:500*par.T
+%     uk = repmat(28*1e-3*9.81/4, 4, 1) - K*(xk-xd);
+%     U(:, k+1) = uk;
+%     
+%     sol = model.dyn_sim('x0', xk, 'p', [uk]);
+%     xk = full(sol.xf);
+%     X(:, k+2) = xk;
+% end
+% 
+% for i=1:4
+% figure();
+% hold on
+% for j=1:3
+%    plot(X(i*3-3+j, :), 'DisplayName', sprintf('x_%i', i*3-3+j)); 
+% end
+% legend();
+% end
 
 function [x, xdot, tau] = quadrotor_dynamics(par)
 
@@ -44,6 +86,9 @@ import casadi.*
 % Declare model variables
 x = SX.sym('x', 12, 1);
 tau = SX.sym('Y', 4, 1);
+
+% syms x [12, 1] real
+% syms tau [4, 1] real
 
 [m, g, J, l_x, l_y, tau_k] = deal(par.m, par.g, par.J, par.l_x, par.l_y, par.tau_k);
 [px, py, pz, roll, pitch, yaw, vx, vy, vz, wx, wy, wz] = ...
@@ -122,8 +167,8 @@ sysd = c2d(sys, dt, 'ZOH');
 [Ad, Bd, ~, ~] = ssdata(sysd);
 
 % Only consider height and orientation
-Ad = Ad([3:6, 9:12], [3:6, 9:12]);
-Bd = Bd([3:6, 9:12], :);
+% Ad = Ad([3:6, 9:12], [3:6, 9:12]);
+% Bd = Bd([3:6, 9:12], :);
 
 [K, ~, ~] = dlqr(Ad, Bd, Q, R);
 
