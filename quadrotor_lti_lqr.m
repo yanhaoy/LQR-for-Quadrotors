@@ -35,19 +35,19 @@ par.exp_data = [
     0.1441;
     0.03733];
 par.Q = diag(1./([
-    1e-1;
-    1e-1; 
+    1e-2;
+    1e-2; 
+    1e-3;
+    1e1;
+    1e1;
+    5e-3;
     1;
     1;
-    1;
-    1;
-    1;
-    1;
-    1;
-    1;
-    1;
-    1].*par.exp_data).^2); % LQR gains
-par.R = 1./(0.04178)^2*eye(4); % LQR gains
+    1e-3;
+    1e-2;
+    1e-2;
+    5e-3].*par.exp_data).^2); % LQR gains
+par.R = 1./(3e-4*0.04178)^2*eye(4); % LQR gains
 % par.Q = diag([1e3,1e3,1e5,1e8,1e8,1e8,1e7,1e7,1e4,1e7,1e7,1e7]); % LQR gains
 % par.R = diag([1e5,1e5,1e5,1e5]); % LQR gains
 
