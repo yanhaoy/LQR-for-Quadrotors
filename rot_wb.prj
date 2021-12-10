@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.coder" plugin-version="R2021a">
-  <configuration build-checksum="2452626050" file="C:\Users\yanhaoy\SandBox\LQR-Tree-for-Quadrotors-master\mylqr.prj" location="C:\Users\yanhaoy\SandBox\LQR-Tree-for-Quadrotors-master" name="mylqr" target="target.unifiedcoder" target-name="MATLAB Coder">
+  <configuration build-checksum="2269679259" file="C:\Users\yanhaoy\SandBox\LQR-Tree-for-Quadrotors-master\rot_wb.prj" location="C:\Users\yanhaoy\SandBox\LQR-Tree-for-Quadrotors-master" name="rot_wb" target="target.unifiedcoder" target-name="MATLAB Coder">
     <profile key="profile.mex">
       <param.BuiltInstrumentedMex />
       <param.RanInstrumentedMex>false</param.RanInstrumentedMex>
@@ -8,12 +8,12 @@
       <param.BuildFolder>option.BuildFolder.Project</param.BuildFolder>
       <param.SpecifiedBuildFolder />
       <param.SearchPaths />
-      <param.ResponsivenessChecks />
-      <param.ExtrinsicCalls />
-      <param.IntegrityChecks />
+      <param.ResponsivenessChecks>true</param.ResponsivenessChecks>
+      <param.ExtrinsicCalls>true</param.ExtrinsicCalls>
+      <param.IntegrityChecks>true</param.IntegrityChecks>
       <param.SaturateOnIntegerOverflow>true</param.SaturateOnIntegerOverflow>
       <param.EnableAutoParallelization>false</param.EnableAutoParallelization>
-      <param.GlobalDataSyncMethod />
+      <param.GlobalDataSyncMethod>option.GlobalDataSyncMethod.SyncAlways</param.GlobalDataSyncMethod>
       <param.EnableVariableSizing>true</param.EnableVariableSizing>
       <param.DynamicMemoryAllocation>option.DynamicMemoryAllocation.Threshold</param.DynamicMemoryAllocation>
       <param.DynamicMemoryAllocationThreshold>65536</param.DynamicMemoryAllocationThreshold>
@@ -29,7 +29,7 @@
       <param.CodeFormattingTool>option.CodeFormattingTool.Auto</param.CodeFormattingTool>
       <param.ReservedNameArray />
       <param.CppStyleConst>false</param.CppStyleConst>
-      <param.EnableDebugging />
+      <param.EnableDebugging>false</param.EnableDebugging>
       <param.Verbosity>option.Verbosity.Info</param.Verbosity>
       <param.ReportPotentialDifferences>false</param.ReportPotentialDifferences>
       <param.GenerateReport>true</param.GenerateReport>
@@ -49,12 +49,12 @@
       <param.CustomSource />
       <param.CustomLibrary />
       <param.PostCodeGenCommand />
-      <param.mex.GenCodeOnly />
+      <param.mex.GenCodeOnly>false</param.mex.GenCodeOnly>
       <param.ConstantFoldingTimeout>40000</param.ConstantFoldingTimeout>
       <param.CompileTimeRecursionLimit>50</param.CompileTimeRecursionLimit>
       <param.EnableRuntimeRecursion>true</param.EnableRuntimeRecursion>
       <param.PreserveVariableNames>option.PreserveVariableNames.None</param.PreserveVariableNames>
-      <param.EchoExpressions />
+      <param.EchoExpressions>true</param.EchoExpressions>
       <param.InlineThreshold>10</param.InlineThreshold>
       <param.InlineThresholdMax>200</param.InlineThresholdMax>
       <param.InlineStackLimit>1000000</param.InlineStackLimit>
@@ -65,12 +65,12 @@
       <param.MemcpyThreshold>64</param.MemcpyThreshold>
       <param.EnableOpenMP>true</param.EnableOpenMP>
       <param.InitFltsAndDblsToZero>true</param.InitFltsAndDblsToZero>
-      <param.ConstantInputs />
+      <param.ConstantInputs>option.ConstantInputs.CheckValues</param.ConstantInputs>
       <param.EnableCRICodeCoverage>true</param.EnableCRICodeCoverage>
       <param.EnableAutoParallelizationReporting>true</param.EnableAutoParallelizationReporting>
       <param.EnableJIT>false</param.EnableJIT>
       <param.EnableJITSilentBailOut />
-      <param.CheckForIssuesJIT />
+      <param.CheckForIssuesJIT>true</param.CheckForIssuesJIT>
       <param.EnableGitSupport>false</param.EnableGitSupport>
       <param.EnableAutoCommit>false</param.EnableAutoCommit>
       <param.RepositoryStyle>option.RepositoryStyle.Auto</param.RepositoryStyle>
@@ -875,7 +875,7 @@
     </param.TestSnippets>
     <param.ExternalFcnMajority>column</param.ExternalFcnMajority>
     <param.UseGlobals>option.UseGlobals.No</param.UseGlobals>
-    <param.outputfile>${PROJECT_ROOT}\codegen\lib\mylqr\mylqr.lib</param.outputfile>
+    <param.outputfile>${PROJECT_ROOT}\codegen\lib\rot_wb\rot_wb.lib</param.outputfile>
     <param.version>R2012a</param.version>
     <param.HasECoderFeatures>true</param.HasECoderFeatures>
     <param.HasGpuCoder>true</param.HasGpuCoder>
@@ -890,21 +890,21 @@
     <param.AutoInferUnboundedSizeThreshold>2048</param.AutoInferUnboundedSizeThreshold>
     <param.EnableFixedPointStep>false</param.EnableFixedPointStep>
     <param.EnableScreener>true</param.EnableScreener>
-    <param.AnnotationChecksum>2234664217</param.AnnotationChecksum>
+    <param.AnnotationChecksum>426352089</param.AnnotationChecksum>
     <var.LegacyTarget />
     <var.MirrorOnOpen>false</var.MirrorOnOpen>
     <param.FixedPointEnabled>false</param.FixedPointEnabled>
     <var.redirectedInputTypeData />
     <var.DismissScreener>true</var.DismissScreener>
     <param.unifiedParamStorage />
-    <var.gc.lastOutputRoot>codegen\lib\mylqr</var.gc.lastOutputRoot>
+    <var.gc.lastOutputRoot>codegen\lib\rot_wb</var.gc.lastOutputRoot>
     <var.gc.lastOutputType>C_CODE</var.gc.lastOutputType>
-    <var.gc.preBuildChecksum>2452626050</var.gc.preBuildChecksum>
+    <var.gc.preBuildChecksum>1637314490</var.gc.preBuildChecksum>
     <var.cfi.lastOutputRoot />
     <var.cfi.preBuildChecksum />
     <var.outdatedOnRestore>false</var.outdatedOnRestore>
-    <var.lastUserSourceChecksum>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;checksum&gt;&lt;includedFiles&gt;&lt;file&gt;C:\Users\yanhaoy\SandBox\LQR-Tree-for-Quadrotors-master\mylqr.m&lt;/file&gt;&lt;/includedFiles&gt;&lt;value&gt;1668173607&lt;/value&gt;&lt;/checksum&gt;</var.lastUserSourceChecksum>
-    <var.sourceSetState>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;sourceModel&gt;&lt;primarySourceFiles&gt;&lt;file&gt;C:\Users\yanhaoy\SandBox\LQR-Tree-for-Quadrotors-master\mylqr.m&lt;/file&gt;&lt;/primarySourceFiles&gt;&lt;fixedPointSourceFiles/&gt;&lt;fixedPointSourceRegistered&gt;false&lt;/fixedPointSourceRegistered&gt;&lt;fixedPointSourceSelected&gt;false&lt;/fixedPointSourceSelected&gt;&lt;/sourceModel&gt;</var.sourceSetState>
+    <var.lastUserSourceChecksum>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;checksum&gt;&lt;includedFiles&gt;&lt;file&gt;C:\Users\yanhaoy\SandBox\LQR-Tree-for-Quadrotors-master\rot_wb.m&lt;/file&gt;&lt;/includedFiles&gt;&lt;value&gt;357640249&lt;/value&gt;&lt;/checksum&gt;</var.lastUserSourceChecksum>
+    <var.sourceSetState>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;sourceModel&gt;&lt;primarySourceFiles&gt;&lt;file&gt;C:\Users\yanhaoy\SandBox\LQR-Tree-for-Quadrotors-master\rot_wb.m&lt;/file&gt;&lt;/primarySourceFiles&gt;&lt;fixedPointSourceFiles/&gt;&lt;fixedPointSourceRegistered&gt;false&lt;/fixedPointSourceRegistered&gt;&lt;fixedPointSourceSelected&gt;false&lt;/fixedPointSourceSelected&gt;&lt;/sourceModel&gt;</var.sourceSetState>
     <param.forceMexBuild>false</param.forceMexBuild>
     <param.NoDefaultJIT>false</param.NoDefaultJIT>
     <param.configImportActive>false</param.configImportActive>
@@ -913,10 +913,10 @@
     <var.boundToGui>true</var.boundToGui>
     <var.isConfigDialog>false</var.isConfigDialog>
     <var.ecoderEnabled>true</var.ecoderEnabled>
-    <param.mex.outputfile>mylqr_mex</param.mex.outputfile>
-    <param.grt.outputfile>mylqr</param.grt.outputfile>
+    <param.mex.outputfile>rot_wb_mex</param.mex.outputfile>
+    <param.grt.outputfile>rot_wb</param.grt.outputfile>
     <param.artifact>option.target.artifact.lib</param.artifact>
-    <param.outputfile>${PROJECT_ROOT}\codegen\lib\mylqr\mylqr.lib</param.outputfile>
+    <param.outputfile>${PROJECT_ROOT}\codegen\lib\rot_wb\rot_wb.lib</param.outputfile>
     <param.CppNamespace />
     <param.CppPackagesToNamespaces>true</param.CppPackagesToNamespaces>
     <param.CppNamespaceForMathworksCode>coder</param.CppNamespaceForMathworksCode>
@@ -961,12 +961,8 @@
     <param.FeatureFlags />
     <param.FixedPointMode>option.FixedPointMode.Singles</param.FixedPointMode>
     <param.AutoScaleLoopIndexVariables>false</param.AutoScaleLoopIndexVariables>
-    <param.ComputedFixedPointData>
-      <ComputedEntities />
-    </param.ComputedFixedPointData>
-    <param.UserFixedPointData>
-      <UserEntities />
-    </param.UserFixedPointData>
+    <param.ComputedFixedPointData />
+    <param.UserFixedPointData />
     <param.DefaultWordLength>16</param.DefaultWordLength>
     <param.DefaultFractionLength>4</param.DefaultFractionLength>
     <param.FixedPointSafetyMargin>0</param.FixedPointSafetyMargin>
@@ -985,11 +981,7 @@
     <param.InstrumentedMexFile />
     <param.FixedPointValidationChecksum />
     <param.FixedPointSourceCodeChecksum />
-    <param.FixedPointFunctionReplacements>
-      <FunctionReplacements>
-        <Replacement />
-      </FunctionReplacements>
-    </param.FixedPointFunctionReplacements>
+    <param.FixedPointFunctionReplacements />
     <param.OptimizeWholeNumbers>true</param.OptimizeWholeNumbers>
     <param.ContainerTypes>false</param.ContainerTypes>
     <param.GeneratedFixedPointFileSuffix>_fixpt</param.GeneratedFixedPointFileSuffix>
@@ -1089,6 +1081,8 @@
       <param.UsePreconditions />
       <param.FeatureFlags />
       <param.AutoScaleLoopIndexVariables />
+      <param.ComputedFixedPointData />
+      <param.UserFixedPointData />
       <param.DefaultWordLength />
       <param.DefaultFractionLength />
       <param.FixedPointSafetyMargin />
@@ -1107,6 +1101,7 @@
       <param.InstrumentedMexFile />
       <param.FixedPointValidationChecksum />
       <param.FixedPointSourceCodeChecksum />
+      <param.FixedPointFunctionReplacements />
       <param.OptimizeWholeNumbers />
       <param.ContainerTypes />
       <param.GeneratedFixedPointFileSuffix />
@@ -1128,33 +1123,42 @@
       <param.FixedPointUseDesignRanges />
     </unset>
     <fileset.entrypoints>
-      <file custom-data-expanded="false" value="${PROJECT_ROOT}\mylqr.m">
-        <Marker>1638990428505</Marker>
+      <file custom-data-expanded="false" value="${PROJECT_ROOT}\rot_wb.m">
+        <Marker>1638991183849</Marker>
       </file>
     </fileset.entrypoints>
     <fileset.testbench>
       <file>${PROJECT_ROOT}\mylqr_in.m</file>
     </fileset.testbench>
     <fileset.inputtypes>
-      <file custom-data-expanded="false" value="${PROJECT_ROOT}\mylqr.m">
-        <Inputs fileName="mylqr.m" functionName="mylqr">
+      <file custom-data-expanded="false" value="${PROJECT_ROOT}\rot_wb.m">
+        <Inputs fileName="rot_wb.m" functionName="rot_wb">
           <Input Name="x" typeId="0" />
-          <Input Name="xd" typeId="0" />
+          <Input Name="rpy" typeId="0" />
+          <Input Name="inv" typeId="1" />
           <idpTable>
             <type typeId="0">
               <Class>single</Class>
-              <Size>12 x 1</Size>
+              <Size>3 x 1</Size>
               <Value />
               <InitialValue />
               <UserDefined>true</UserDefined>
               <Complex>false</Complex>
+            </type>
+            <type typeId="1">
+              <Class>logical</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Sparse>false</Sparse>
             </type>
           </idpTable>
         </Inputs>
       </file>
     </fileset.inputtypes>
     <build-deliverables>
-      <file location="${PROJECT_ROOT}\codegen\lib\mylqr" name="mylqr.lib" optional="false">C:\Users\yanhaoy\SandBox\LQR-Tree-for-Quadrotors-master\codegen\lib\mylqr\mylqr.lib</file>
+      <file location="${PROJECT_ROOT}\codegen\lib\rot_wb" name="rot_wb.lib" optional="false">C:\Users\yanhaoy\SandBox\LQR-Tree-for-Quadrotors-master\codegen\lib\rot_wb\rot_wb.lib</file>
     </build-deliverables>
     <workflow />
     <matlab>

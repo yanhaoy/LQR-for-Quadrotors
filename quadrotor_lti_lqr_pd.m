@@ -34,23 +34,131 @@ par.exp_data = [
     0.1441;
     0.1441;
     0.03733];
-par.Q = diag(1./([
-    1e-2;
-    1e-2; 
-    1e-3;
-    1e1;
-    1e1;
-    5e-3;
+par.Q = diag([
     1;
-    1;
-    1e-3;
-    1e-2;
-    1e-2;
-    5e-3].*par.exp_data).^2); % LQR gains
-par.R = 1./(3e-4*0.04178)^2*eye(4); % LQR gains
+    1; 
+    1e-9;
+    1e-9;
+    1e-9;
+    1e-9;
+    1e-9;
+    1e-9;
+    1e-9;
+    1e-9;
+    1e-9;
+    1e-9]); % LQR gains
+par.R = 1e3*eye(4); % LQR gains
 
+%%
+[Kpd] = pdLQR(par);
+
+%%
 [model] = dynamics(par);
 [K] = lti_lqr(model, par);
+% K = Kpd;
+
+%%
+X = [];
+U = [];
+xk = [0;0;0;0.76;0.76;0;0;0;0;0;0;0];
+xd = [0;0;0;0;0;0;0;0;0;0;0;0];
+X(:, 1) = xk;
+for k=0:500*par.T
+    uk = mylqr(xk, xd);
+    U(:, k+1) = uk;
+    
+    sol = model.dyn_sim('x0', xk, 'p', [uk]);
+    xk = full(sol.xf);
+    X(:, k+2) = xk;
+end
+
+for i=1:4
+figure();
+hold on
+for j=1:3
+   plot(X(i*3-3+j, :), 'DisplayName', sprintf('x_%i', i*3-3+j)); 
+end
+legend();
+end
+
+%%
+X = [];
+U = [];
+xk = [0;0;0;0.76;0.76;0;0;0;0;0;0;0];
+xd = [0;0;0;0;0;0;0;0;0;0;0;0];
+X(:, 1) = xk;
+for k=0:500*par.T
+    uk = mylqr_pfl(xk, xd);
+    U(:, k+1) = uk;
+    
+    sol = model.dyn_sim('x0', xk, 'p', [uk]);
+    xk = full(sol.xf);
+    X(:, k+2) = xk;
+end
+
+for i=1:4
+figure();
+hold on
+for j=1:3
+   plot(X(i*3-3+j, :), 'DisplayName', sprintf('x_%i', i*3-3+j)); 
+end
+legend();
+end
+
+%%
+function [Kpd] = pdLQR(par)
+
+[dt, m, g, J, l_x, l_y, tau_k] = deal(par.dt, par.m, par.g, par.J, par.l_x, par.l_y, par.tau_k);
+
+s = tf('s');
+sys = c2d(1/J(1, 1)/s^2, dt, 'ZOH');
+Crp = pidtune(sys,'PD',500*2*pi/60,pidtuneOptions('DesignFocus','disturbance-rejection','PhaseMargin',90));
+% figure()
+% stepplot(feedback(sys*Crp, 1))
+sys = c2d(1/J(3, 3)/s^2, dt, 'ZOH');
+Cy = pidtune(sys,'PD',500*2*pi/60,pidtuneOptions('DesignFocus','disturbance-rejection','PhaseMargin',90));
+% figure()
+% stepplot(feedback(sys*Cy, 1))
+sys = c2d(1/m/s^2, dt*5, 'ZOH');
+Cz = pidtune(sys,'PD',100*2*pi/90,pidtuneOptions('DesignFocus','disturbance-rejection','PhaseMargin',70));
+% figure()
+% stepplot(feedback(sys*Cz, 1))
+s = tf('s');
+sys = c2d(1/J(1, 1)/s^2, dt*5, 'ZOH');
+Cxy = pidtune(sys,'PD',100*2*pi/60,pidtuneOptions('DesignFocus','disturbance-rejection','PhaseMargin',80));
+
+Kpd = zeros(4, 12);
+[Kpd(2, 4), ~, Kpd(2, 10)] = piddata(Crp);
+[Kpd(3, 5), ~, Kpd(3, 11)] = piddata(Crp);
+[Kpd(4, 6), ~, Kpd(4, 12)] = piddata(Cy);
+[Kpd(1, 3), ~, Kpd(1, 9)] = piddata(Cz);
+Kpd(3, 5) = -Kpd(3, 5);
+Kpd(3, 11) = Kpd(3, 11);
+
+Kpd = [1,1,1,1;
+    -l_x, -l_x, l_x, l_x;
+    -l_y, l_y, l_y, -l_y;
+    -tau_k, tau_k, -tau_k, tau_k]\Kpd;
+
+Kpd2 = zeros(4, 12);
+[Kpd2(2, 4), ~, Kpd2(2, 10)] = piddata(Cxy);
+[Kpd2(3, 5), ~, Kpd2(3, 11)] = piddata(Cxy);
+[Kpd2(4, 6), ~, Kpd2(4, 12)] = piddata(Cy);
+[Kpd2(1, 3), ~, Kpd2(1, 9)] = piddata(Cz);
+Kpd2(3, 5) = -Kpd2(3, 5);
+Kpd2(3, 11) = Kpd2(3, 11);
+
+Kpd2 = [1,1,1,1;
+    -l_x, -l_x, l_x, l_x;
+    -l_y, l_y, l_y, -l_y;
+    -tau_k, tau_k, -tau_k, tau_k]\Kpd2;
+
+Kpd(:, 1) = -Kpd2(:, 5)*0.9481;
+Kpd(:, 2) = -Kpd2(:, 4)*0.9481;
+Kpd(:, 7) = Kpd2(:, 11)*3.2342;
+Kpd(:, 8) = -Kpd2(:, 10)*3.2342;
+
+end
 
 function [x, xdot, tau] = quadrotor_dynamics(par)
 
@@ -70,6 +178,7 @@ tau = SX.sym('Y', 4, 1);
 [-l_x, -l_x, l_x, l_x]*tau, ...
 [-l_y, l_y, l_y, -l_y]*tau, ...
 [-tau_k, tau_k, -tau_k, tau_k]*tau); % Thrust and torque in body frame
+% [F, tau_x, tau_y, tau_z] = deal(tau(1), tau(2), tau(3), tau(4));
 
 % Rotation matrix
 R_wb = [cos(yaw), -sin(yaw), 0;

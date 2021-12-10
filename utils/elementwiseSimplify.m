@@ -8,7 +8,7 @@ else
     job = numel(var);
     for i=1:job
         fprintf("simplifying %s %d/%d \n", name, i, job)
-        var(i) = simplify(var(i)) ;
+        var(i) = simplify(var(i), 'Steps', 100) ;
     end
 end
 
